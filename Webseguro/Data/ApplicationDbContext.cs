@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Webseguro.Models;
 
 namespace Webseguro.Data
 {
@@ -12,5 +13,36 @@ namespace Webseguro.Data
             : base(options)
         {
         }
+        public virtual DbSet<Persona> Persona { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<Persona>(en =>
+            {
+                en.HasKey(e => e.Codigo);
+
+                en.Property(e => e.Nombre)
+                .IsRequired()
+                .HasMaxLength(100)
+                .IsUnicode(false);
+
+                en.Property(e => e.Apellido)
+                .IsRequired()
+                .HasMaxLength(100)
+                .IsUnicode(false);
+
+                en.Property(e => e.Direccion)
+                .IsRequired()
+                .HasMaxLength(250)
+                .IsUnicode(false);
+
+                en.Property(e => e.Estado)
+                //.IsRequired()
+                //.HasMaxLength(250)
+                .IsUnicode(false);
+
+            });
+        }        
     }
 }
