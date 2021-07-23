@@ -45,12 +45,7 @@
             <td>
                 @Html.ActionLink("Editar", "Edit", new { id = item.Codigo }, new
                { onclick = "return confirm('Esta seguro que quieres editar?');" }) |
-                @Html.ActionLink("Details", "Details", new
-                {
-                    Codigo = item.Codigo
-               }, new
-                {
-                    onclick = "return confirm('Esta seguro que quieres ver los detalles?');"
+                @Html.ActionLink("Details", "Details", new {Codigo = item.Codigo}, new{onclick = "return confirm('Esta seguro que quieres ver los detalles?');"
                }) |
 
                 @Html.ActionLink("Eliminar", "Delete", new { id = item.Codigo },

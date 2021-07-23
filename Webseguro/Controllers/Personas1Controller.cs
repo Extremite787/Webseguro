@@ -2,26 +2,31 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Webseguro.Data;
 using Webseguro.Models;
 
 namespace Webseguro.Controllers
 {
+    [Authorize]
     public class Personas1Controller : Controller
     {
         private readonly ApplicationDbContext _applicationDbContext;
 
+        
         public Personas1Controller(ApplicationDbContext applicationDbContext)
         {
             _applicationDbContext = applicationDbContext;
         }
+        [Authorize(Roles = "Dios","Humano")]
         public IActionResult Index()
         {
             List<Persona> personas = new List<Persona>();
             personas = _applicationDbContext.Persona.ToList();
             return View(personas);
         }
+        [Authorize(Roles = "Dios","Humano")]
         public IActionResult Details(int Codigo)
         {
             if (Codigo == 0)
@@ -32,10 +37,12 @@ namespace Webseguro.Controllers
                 return RedirectToAction("Index");
             return View(persona);
         }
+        [Authorize(Roles = "Dios")]
         public IActionResult Create()
         {
             return View();
         }
+        [Authorize(Roles = "Dios")]
         [HttpPost]
         public IActionResult Create(Persona persona)
         {
@@ -52,6 +59,7 @@ namespace Webseguro.Controllers
 
             return RedirectToAction("Index");
         }
+        [Authorize(Roles = "Dios")]
         public IActionResult Edit(int id)
         {
             if (id == 0)
@@ -66,6 +74,7 @@ namespace Webseguro.Controllers
 
             return View(persona);
         }
+        [Authorize(Roles = "Dios")]
         [HttpPost]
         public IActionResult Edit(int id, Persona persona)
         {
@@ -84,7 +93,7 @@ namespace Webseguro.Controllers
 
             return RedirectToAction("Index");
         }
-
+        [Authorize(Roles = "Dios")]
         public IActionResult Delete(int id)
         {
             if (id == 0)

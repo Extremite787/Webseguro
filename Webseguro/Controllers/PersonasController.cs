@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using Webseguro.Models;
 
 namespace Webseguro.Controllers
 {
+    
     public class PersonasController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -42,7 +44,6 @@ namespace Webseguro.Controllers
 
             return View(persona);
         }
-
         // GET: Personas/Create
         public IActionResult Create()
         {
@@ -133,7 +134,7 @@ namespace Webseguro.Controllers
 
             return View(persona);
         }
-
+       
         // POST: Personas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
