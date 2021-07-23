@@ -7,7 +7,7 @@ using Webseguro.Models;
 
 namespace Webseguro.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser,UserRole, string>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser,UserRole,string>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -38,8 +38,8 @@ namespace Webseguro.Data
                 .IsUnicode(false);
 
                 en.Property(e => e.Estado)
-                //.IsRequired()
-                //.HasMaxLength(250)
+                .IsRequired()
+                .HasMaxLength(250)
                 .IsUnicode(false);
 
             });

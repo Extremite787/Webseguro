@@ -14,19 +14,18 @@ namespace Webseguro.Controllers
     {
         private readonly ApplicationDbContext _applicationDbContext;
 
-        
         public Personas1Controller(ApplicationDbContext applicationDbContext)
         {
             _applicationDbContext = applicationDbContext;
         }
-        [Authorize(Roles = "Dios","Humano")]
+        [Authorize (Roles ="Dios,Humano")]
         public IActionResult Index()
         {
             List<Persona> personas = new List<Persona>();
             personas = _applicationDbContext.Persona.ToList();
             return View(personas);
         }
-        [Authorize(Roles = "Dios","Humano")]
+        [Authorize(Roles = "Dios,Humano")]
         public IActionResult Details(int Codigo)
         {
             if (Codigo == 0)

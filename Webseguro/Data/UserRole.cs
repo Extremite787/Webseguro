@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Webseguro.Data
 {
-    public class UserRole : IdentityRole
+    public class UserRole: IdentityRole
     {
+
     }
 }

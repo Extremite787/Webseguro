@@ -30,15 +30,16 @@ namespace Webseguro
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddIdentity<ApplicationUser,UserRole>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-
             services.ConfigureApplicationCookie(co =>
             {
                 co.Cookie.HttpOnly = true;
                 co.ExpireTimeSpan = TimeSpan.FromMinutes(1);
-                co.LoginPath = 
+                co.LoginPath = "Identity.Pages.Account/Login";
+                co.AccessDeniedPath = "Identity.Pages.Account"
             });
+            
             services.AddControllersWithViews();
             
         }
