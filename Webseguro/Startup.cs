@@ -36,11 +36,13 @@ namespace Webseguro
             {
                 co.Cookie.HttpOnly = true;
                 co.ExpireTimeSpan = TimeSpan.FromMinutes(1);
-                co.LoginPath = "Identity.Pages.Account/Login";
-                co.AccessDeniedPath = "Identity.Pages.Account"
+                co.LoginPath = "/Identity/Account/Login";
+                co.AccessDeniedPath = "/Identity/Account/AccessDenied";
+                co.SlidingExpiration = true;
             });
             
             services.AddControllersWithViews();
+            services.AddRazorPages();
             
         }
 
