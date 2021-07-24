@@ -45,11 +45,20 @@
             <td>
                 @Html.ActionLink("Editar", "Edit", new { id = item.Codigo }, new
                { onclick = "return confirm('Esta seguro que quieres editar?');" }) |
-                @Html.ActionLink("Details", "Details", new {Codigo = item.Codigo}, new{onclick = "return confirm('Esta seguro que quieres ver los detalles?');"
-               }) |
+                @Html.ActionLink("Details", "Details", new { Codigo = item.Codigo }, new { onclick = "return confirm('Esta seguro que quieres ver los detalles?');" }) |
 
-                @Html.ActionLink("Eliminar", "Delete", new { id = item.Codigo },
-               new { onclick = "return confirm('Esta seguro que quieres eliminar?');" })
+                @if (item.Cambio == 1)
+                {
+                    @Html.ActionLink("Desactivar", "Desactivar", new { id = item.Codigo },
+               new { onclick = "return confirm('Esta seguro que quieres desactivar?');" })
+
+                }
+                else
+                {
+                    @Html.ActionLink("Activar", "Activar", new { id = item.Codigo },
+               new { onclick = "return confirm('Esta seguro que quieres activar?');" })
+
+                }
             </td>
         </tr>
 }

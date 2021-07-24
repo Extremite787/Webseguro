@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Webseguro.Data;
 using Webseguro.Models;
 
@@ -39,6 +40,8 @@ namespace Webseguro.Controllers
         [Authorize(Roles = "Dios")]
         public IActionResult Create()
         {
+            ViewData["CodigoGenero"] = new SelectList(_applicationDbContext.Generos.Where(x => x.Estado == 1).ToList(),"Codigo", "Contenido");
+            
             return View();
         }
         [Authorize(Roles = "Dios")]
@@ -92,15 +95,53 @@ namespace Webseguro.Controllers
 
             return RedirectToAction("Index");
         }
-        [Authorize(Roles = "Dios")]
-        public IActionResult Delete(int id)
+        // [Authorize(Roles = "Dios")]
+        //public IActionResult Delete(int id)
+        // {
+        // if (id == 0)
+        //  return RedirectToAction("Index");
+        // Persona persona = _applicationDbContext.Persona.Where(x => x.Codigo == id).FirstOrDefault();
+        // try
+        //   {
+        //   _applicationDbContext.Remove(persona);
+        //    _applicationDbContext.SaveChanges();
+        //   }
+        //  catch (Exception)
+        //    {
+
+        //     return RedirectToAction("Index");
+        //      }
+
+        //   return RedirectToAction("Index");
+        // }
+        public IActionResult Desactivar(int id)
+        {
+            if (id == 0)
+                return RedirectToAction("Index");
+                Persona persona = _applicationDbContext.Persona.Where(x => x.Codigo == id).FirstOrDefault();
+            try
+            {
+                persona.Estado = 0;
+                _applicationDbContext.Update(persona);
+                _applicationDbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine(ex.Message);
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("Index");
+        }
+        public IActionResult Activar(int id)
         {
             if (id == 0)
                 return RedirectToAction("Index");
             Persona persona = _applicationDbContext.Persona.Where(x => x.Codigo == id).FirstOrDefault();
             try
             {
-                _applicationDbContext.Remove(persona);
+                persona.Estado = 1;
+                _applicationDbContext.Update(persona);
                 _applicationDbContext.SaveChanges();
             }
             catch (Exception)
@@ -111,5 +152,6 @@ namespace Webseguro.Controllers
 
             return RedirectToAction("Index");
         }
+
     }
 }
